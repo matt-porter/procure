@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `CpuTimes` struct in crate `procure`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, CpuTimes">
+
+    <title>procure::cpu::CpuTimes - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>procure</a>::<wbr><a href='index.html'>cpu</a></p><script>window.sidebarCurrent = {name: 'CpuTimes', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>procure</a>::<wbr><a href='index.html'>cpu</a>::<wbr><a class='struct' href=''>CpuTimes</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-21' class='srclink' href='../../src/procure/cpu/mod.rs.html#17-44' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct CpuTimes {
+    pub user: <a href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
+    pub nice: <a href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
+    pub system: <a href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
+    pub idle: <a href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
+    pub iowait: <a href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
+    pub irq: <a href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
+    pub softirq: <a href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
+    pub steal: <a href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
+    pub guest: <a href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
+    pub guest_nice: <a href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>,
+}</pre><div class='docblock'><p>Details about current CPU time utilization.</p>
+
+<p>This object provides insight into the amount of time, measured in USER_HZ, that
+the system spent in various modes. These are hertz counters and not necessarily
+useful on their own, but against itself over some duration.</p>
+</div><h2 class='fields'>Fields</h2>
+<table><tr class='stab '>
+                                  <td id='structfield.user'><code>user</code></td><td><div class='docblock'><p>Time spent in user mode</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.nice'><code>nice</code></td><td><div class='docblock'><p>Time spent in user mode with low priority (nice)</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.system'><code>system</code></td><td><div class='docblock'><p>Time spent in system mode</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.idle'><code>idle</code></td><td><div class='docblock'><p>Time spent idle</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.iowait'><code>iowait</code></td><td><div class='docblock'><p>Time spent waiting for I/O to complete</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.irq'><code>irq</code></td><td><div class='docblock'><p>Time spent servicing interrupts</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.softirq'><code>softirq</code></td><td><div class='docblock'><p>Time spent servicing softirqs</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.steal'><code>steal</code></td><td><div class='docblock'><p>Time spent in other operating systems when running
+in a virtualized environment.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.guest'><code>guest</code></td><td><div class='docblock'><p>Time spent running a virtualized CPU for a guest
+operating system</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.guest_nice'><code>guest_nice</code></td><td><div class='docblock'><p>Time spent running a niced guest virtualized CPU for a guest
+operating systems</p>
+</div></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../procure/cpu/struct.CpuTimes.html' title='procure::cpu::CpuTimes'>CpuTimes</a></code></h3><div class='impl-items'><h4 id='method.total' class='method'><code>fn <a href='#method.total' class='fnname'>total</a>() -&gt; <a class='type' href='../../procure/type.Result.html' title='procure::Result'>Result</a>&lt;<a class='struct' href='../../procure/cpu/struct.CpuTimes.html' title='procure::cpu::CpuTimes'>CpuTimes</a>&gt;</code></h4>
+<div class='docblock'><p>Get a <code>CpuTimes</code> object filled with the total cpu times aggregated
+for all cores.</p>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>procure</span>::<span class='ident'>cpu</span>::<span class='ident'>CpuTimes</span>;
+
+<span class='kw'>let</span> <span class='ident'>times</span> <span class='op'>=</span> <span class='ident'>CpuTimes</span>::<span class='ident'>total</span>().<span class='ident'>unwrap</span>();
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(
+    <span class='ident'>times</span>,
+    <span class='ident'>CpuTimes</span> {
+        <span class='ident'>user</span>: <span class='number'>7969864</span>,
+        <span class='ident'>nice</span>: <span class='number'>6735</span>,
+        <span class='ident'>system</span>: <span class='number'>1633028</span>,
+        <span class='ident'>iowait</span>: <span class='number'>48613</span>,
+        <span class='ident'>idle</span>: <span class='number'>43336958</span>,
+        <span class='ident'>irq</span>: <span class='number'>180</span>,
+        <span class='ident'>softirq</span>: <span class='number'>5043</span>,
+        <span class='ident'>steal</span>: <span class='number'>0</span>,
+        <span class='ident'>guest</span>: <span class='number'>0</span>,
+        <span class='ident'>guest_nice</span>: <span class='number'>0</span>,
+    }
+);</pre>
+</div><h4 id='method.total_from_file' class='method'><code>fn <a href='#method.total_from_file' class='fnname'>total_from_file</a>(stat_file: &amp;<a class='struct' href='https://doc.rust-lang.org/nightly/std/fs/struct.File.html' title='std::fs::File'>File</a>) -&gt; <a class='type' href='../../procure/type.Result.html' title='procure::Result'>Result</a>&lt;<a class='struct' href='../../procure/cpu/struct.CpuTimes.html' title='procure::cpu::CpuTimes'>CpuTimes</a>&gt;</code></h4>
+<div class='docblock'><p>Similar to <code>CpuTimes::total</code> but allows you to pass in an existing
+<code>File</code> to /proc/stat. This method expects the file cursor to be at 0.</p>
+</div><h4 id='method.per_cpu' class='method'><code>fn <a href='#method.per_cpu' class='fnname'>per_cpu</a>() -&gt; <a class='type' href='../../procure/type.Result.html' title='procure::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../procure/cpu/struct.CpuTimes.html' title='procure::cpu::CpuTimes'>CpuTimes</a>&gt;&gt;</code></h4>
+<div class='docblock'><p>Get a <code>Vec</code> of <code>CpuTimes</code> objects, one for each core.</p>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>procure</span>::<span class='ident'>cpu</span>::<span class='ident'>CpuTimes</span>;
+
+<span class='kw'>let</span> <span class='ident'>times</span> <span class='op'>=</span> <span class='ident'>CpuTimes</span>::<span class='ident'>per_cpu</span>().<span class='ident'>unwrap</span>();
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(
+    <span class='ident'>times</span>,
+    <span class='macro'>vec</span><span class='macro'>!</span>[
+        <span class='ident'>CpuTimes</span> {
+            <span class='ident'>user</span>: <span class='number'>2036657</span>, <span class='ident'>nice</span>: <span class='number'>3176</span>, <span class='ident'>system</span>: <span class='number'>538690</span>, <span class='ident'>idle</span>: <span class='number'>40502503</span>, <span class='ident'>iowait</span>: <span class='number'>48123</span>,
+            <span class='ident'>irq</span>: <span class='number'>180</span>, <span class='ident'>softirq</span>: <span class='number'>4562</span>, <span class='ident'>steal</span>: <span class='number'>0</span>, <span class='ident'>guest</span>: <span class='number'>0</span>, <span class='ident'>guest_nice</span>: <span class='number'>0</span>,
+        },
+        <span class='ident'>CpuTimes</span> {
+            <span class='ident'>user</span>: <span class='number'>1895483</span>, <span class='ident'>nice</span>: <span class='number'>1224</span>, <span class='ident'>system</span>: <span class='number'>350858</span>, <span class='ident'>idle</span>: <span class='number'>947119</span>, <span class='ident'>iowait</span>: <span class='number'>194</span>,
+            <span class='ident'>irq</span>: <span class='number'>0</span>, <span class='ident'>softirq</span>: <span class='number'>244</span>, <span class='ident'>steal</span>: <span class='number'>0</span>, <span class='ident'>guest</span>: <span class='number'>0</span>, <span class='ident'>guest_nice</span>: <span class='number'>0</span>,
+        },
+    ]
+);</pre>
+</div><h4 id='method.per_cpu_from_file' class='method'><code>fn <a href='#method.per_cpu_from_file' class='fnname'>per_cpu_from_file</a>(stat_file: &amp;<a class='struct' href='https://doc.rust-lang.org/nightly/std/fs/struct.File.html' title='std::fs::File'>File</a>) -&gt; <a class='type' href='../../procure/type.Result.html' title='procure::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../procure/cpu/struct.CpuTimes.html' title='procure::cpu::CpuTimes'>CpuTimes</a>&gt;&gt;</code></h4>
+<div class='docblock'><p>Similar to <code>CpuTimes::per_cpu</code> but allows you to pass in an existing
+<code>File</code> to /proc/stat. This method expects the file cursor to be at 0.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='struct' href='../../procure/cpu/struct.CpuTimes.html' title='procure::cpu::CpuTimes'>CpuTimes</a></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='struct' href='../../procure/cpu/struct.CpuTimes.html' title='procure::cpu::CpuTimes'>CpuTimes</a>) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='struct' href='../../procure/cpu/struct.CpuTimes.html' title='procure::cpu::CpuTimes'>CpuTimes</a>) -&gt; <a href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../procure/cpu/struct.CpuTimes.html' title='procure::cpu::CpuTimes'>CpuTimes</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div>
+            <div class="shortcuts">
+                <h1>Keyboard Shortcuts</h1>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h1>Search Tricks</h1>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "procure";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

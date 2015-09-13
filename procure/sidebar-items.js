@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["Error","Custom Error type returned with `procure` `Result`'s"]],"mod":[["cpu","CPU Metrics"],["process","Process Metrics"]],"type":[["Result","Custom Result type many `procure` methods return"]]});

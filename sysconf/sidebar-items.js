@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["SysconfError",""],["SysconfVariable",""]],"fn":[["sysconf",""]],"type":[["Result",""]]});
