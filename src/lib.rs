@@ -24,4 +24,3 @@ pub enum Error {
     IoError(io::Error),
     ParseError(ParseIntError),
 }
-
