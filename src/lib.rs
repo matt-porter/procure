@@ -3,6 +3,8 @@
 
 // Externs
 extern crate sysconf;
+extern crate csv;
+extern crate rustc_serialize;
 
 
 // Imports

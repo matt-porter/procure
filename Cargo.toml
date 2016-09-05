@@ -9,3 +9,5 @@ description = "Rust Library for interfacing with /proc"
 
 [dependencies]
 sysconf = "*"
+csv = "*"
+rustc-serialize = "*"

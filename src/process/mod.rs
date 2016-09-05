@@ -1,22 +1,25 @@
 //! Process Metrics
-
 use std::fs;
 use std::fs::File;
 use std::io::Read;
 use std::iter::Iterator;
 
+use csv::Reader;
+
+use rustc_serialize::{Decoder, Decodable};
 
 #[derive(Debug)]
 pub struct Process {
     pub pid: i32,
     pub command: String,
-    pub start_time: f64,
-    pub rss: i64,
-    pub vsz: i64,
-    pub cpu_time: i64,
+    pub start_time: u64,
+    pub rss: i32,
+    pub vsz: u64,
+    pub cpu_time: u64,
     pub cpu_percent: f32,
 }
 
+#[derive(RustcDecodable)]
 struct ProcessStat {
     pid: i32,
     comm: String,
@@ -118,71 +121,18 @@ fn processes_from_path(proc_path: &str) -> Processes {
 }
 
 fn read_stat_file(path: &str) -> ProcessStat {
-    let mut contents = String::new();
-    let mut f = File::open(path).expect("Failed to open stat path");
-    f.read_to_string(&mut contents).expect("Failed to read file");
-    let mut fields = contents.split(' ');
-    // let pid = fields.next().and_then(|n| n.parse())
-    ProcessStat {
-        pid: fields.next().unwrap().trim().parse().unwrap(),
-        comm: fields.next().unwrap().trim().to_owned(),
-        state: fields.next().unwrap().trim().chars().next().unwrap(),
-        ppid: fields.next().unwrap().trim().parse().unwrap(),
-        pgrp: fields.next().unwrap().trim().parse().unwrap(),
-        session: fields.next().unwrap().trim().parse().unwrap(),
-        tty_nr: fields.next().unwrap().trim().parse().unwrap(),
-        tpgid: fields.next().unwrap().trim().parse().unwrap(),
-        flags: fields.next().unwrap().trim().parse().unwrap(),
-        minflt: fields.next().unwrap().trim().parse().unwrap(),
-        cminflt: fields.next().unwrap().trim().parse().unwrap(),
-        majflt: fields.next().unwrap().trim().parse().unwrap(),
-        cmajflt: fields.next().unwrap().trim().parse().unwrap(),
-        utime: fields.next().unwrap().trim().parse().unwrap(),
-        stime: fields.next().unwrap().trim().parse().unwrap(),
-        cutime: fields.next().unwrap().trim().parse().unwrap(),
-        cstime: fields.next().unwrap().trim().parse().unwrap(),
-        priority: fields.next().unwrap().trim().parse().unwrap(),
-        nice: fields.next().unwrap().trim().parse().unwrap(),
-        num_threads: fields.next().unwrap().trim().parse().unwrap(),
-        itrealvalue: fields.next().unwrap().trim().parse().unwrap(),
-        starttime: fields.next().unwrap().trim().parse().unwrap(),
-        vsize: fields.next().unwrap().trim().parse().unwrap(),
-        rss: fields.next().unwrap().trim().parse().unwrap(),
-        rsslim: fields.next().unwrap().trim().parse().unwrap(),
-        startcode: fields.next().unwrap().trim().parse().unwrap(),
-        endcode: fields.next().unwrap().trim().parse().unwrap(),
-        startstack: fields.next().unwrap().trim().parse().unwrap(),
-        kstkesp: fields.next().unwrap().trim().parse().unwrap(),
-        kstkeip: fields.next().unwrap().trim().parse().unwrap(),
-        signal: fields.next().unwrap().trim().parse().unwrap(),
-        blocked: fields.next().unwrap().trim().parse().unwrap(),
-        sigignore: fields.next().unwrap().trim().parse().unwrap(),
-        sigcatch: fields.next().unwrap().trim().parse().unwrap(),
-        wchan: fields.next().unwrap().trim().parse().unwrap(),
-        nswap: fields.next().unwrap().trim().parse().unwrap(),
-        cnswap: fields.next().unwrap().trim().parse().unwrap(),
-        exit_signal: fields.next().unwrap().trim().parse().unwrap(),
-        processor: fields.next().unwrap().trim().parse().unwrap(),
-        rt_priority: fields.next().unwrap().trim().parse().unwrap(),
-        policy: fields.next().unwrap().trim().parse().unwrap(),
-        delayacct_blkio_ticks: fields.next().unwrap().trim().parse().unwrap(), // llu?
-        guest_time: fields.next().unwrap().trim().parse().unwrap(),
-        cguesttime: fields.next().unwrap().trim().parse().unwrap(),
-        start_data: fields.next().unwrap().trim().parse().unwrap(),
-        end_data: fields.next().unwrap().trim().parse().unwrap(),
-        start_brk: fields.next().unwrap().trim().parse().unwrap(),
-        arg_start: fields.next().unwrap().trim().parse().unwrap(),
-        arg_end: fields.next().unwrap().trim().parse().unwrap(),
-        env_start: fields.next().unwrap().trim().parse().unwrap(),
-        env_end: fields.next().unwrap().trim().parse().unwrap(),
-        exit_code: fields.next().unwrap().trim().parse().unwrap(),
-    }
+    Reader::from_file(path)
+        .expect("Failed to open file")
+        .has_headers(false)
+        .delimiter(' ' as u8)
+        .decode()
+        .filter_map(|stat| stat.ok())
+        .next()
+        .unwrap()
 }
 
 fn process_from_path(proc_path: &str, pid: i32) -> Result<Process, &'static str> {
     // Gather the process data present in "`path`/`pid`".
-    // Should probably return Option<Process>
-    //
     let mut command = String::new();
     let mut f = File::open(&format!("{}/{}/cmdline", proc_path, pid)).expect("Failed to open path");
     f.read_to_string(&mut command).expect("Failed to read file");
@@ -193,8 +143,8 @@ fn process_from_path(proc_path: &str, pid: i32) -> Result<Process, &'static str>
         start_time: stat.starttime,
         rss: stat.rss,
         vsz: stat.vsize,
-        cpu_time: stat.cpu_time,
-        cpu_percent: stat.cpu_percent,
+        cpu_time: stat.utime + stat.stime,
+        cpu_percent: 0f32,
     })
 }
 
